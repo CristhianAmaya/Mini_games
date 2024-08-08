@@ -8,15 +8,15 @@ public class Generate_bottles : MonoBehaviour
 {
     public GameObject Bottles_game; // Prefab para generar los objetos botella
     public GameObject Platforms_game; // Prefab para generar los objetos plataforma
-    //public GameObject Bottles_stay; 
-    //public GameObject Platforms_stay;
     public Vector3 Initial_positions; // Se aginan las posiciones iniciales de los objetos
-    private int Generate_number; // Numero de objetos a generar
+    [HideInInspector]
+    public int Generate_number; // Numero de objetos a generar
     private Vector3[] positions_platforms; // Posiciones de las plataformas
     private Vector3[] positions_bottles; // Posiciones d elas botellas
     private Color[] Colors; // Lista de colores para asignar a los objetos
     private List<int> usedColors; // Lista para rastrear los colores utilizados
     private List<int> usedColors2; // Lista para rastrear los colores utilizados
+    public Bottles_mechanics bottles_Mechanics;
 
     void Start()
     {
@@ -32,8 +32,6 @@ public class Generate_bottles : MonoBehaviour
         positions_bottles = new Vector3[Generate_number];
         positions_platforms[0] = new Vector3(Initial_positions.x, Initial_positions.y + Platforms_game.transform.localScale.y / 2, Initial_positions.z);
         positions_bottles[0] = new Vector3(Initial_positions.x, Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + 0.6f, Initial_positions.z);
-        //Bottles_stay = Bottles_game;
-        //Platforms_stay = Platforms_game;
 
         Colors = new Color[Generate_number];
         Colors[0] = Color.red;
@@ -73,6 +71,7 @@ public class Generate_bottles : MonoBehaviour
 
             newBottle.name = "Bottle_Stay_" + (i + 1); // Asigna un nuevo nombre al objeto
             newPlatform.name = "Platform_Stay_" + (i + 1); // Asigna un nuevo nombre al objeto
+            bottles_Mechanics.Platforms_mec_stay.Add(newPlatform);
         }
     }
 
@@ -114,6 +113,7 @@ public class Generate_bottles : MonoBehaviour
 
             newBottle.name = "Bottle_Game_" + (i + 1); // Asigna un nuevo nombre al objeto
             newPlatform.name = "Platform_Game_" + (i + 1); // Asigna un nuevo nombre al objeto
+            bottles_Mechanics.Platforms_mec_Game.Add(newPlatform);
         }
     }
 }

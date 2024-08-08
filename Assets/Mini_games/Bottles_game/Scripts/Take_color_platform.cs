@@ -23,6 +23,7 @@ public class Take_color_platform : MonoBehaviour
             {
                 // Cambia el color de la plataforma al color de la botella con la que colisiona
                 platformRenderer.material.color = bottleRenderer.material.color;
+
             }
         }
     }
