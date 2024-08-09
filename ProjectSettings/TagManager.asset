@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Disk_Hanoi
   - Bottle_color
+  - Hand_VR
   layers:
   - Default
   - TransparentFX
