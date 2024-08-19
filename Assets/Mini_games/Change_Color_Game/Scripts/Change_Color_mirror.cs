@@ -9,6 +9,7 @@ public class Change_Color_mirror : MonoBehaviour
     public Generate_buttons generate_Buttons;
     public float timeToWait = 2.0f; // Tiempo de espera en segundos
     private int RadomColor;
+    private int time_mirror; //Esta variable servirá para hacer que la pantalla cambie los colores más rápidos 
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Change_Color_mirror : MonoBehaviour
         // Inicia la corrutina para cambiar el color cada dos segundos
         Initial_color();
         StartCoroutine(change_color());
+        StartCoroutine(incrementTimeMirror());
     }
 
     // Corrutina para cambiar el color
@@ -44,9 +46,35 @@ public class Change_Color_mirror : MonoBehaviour
         }
     }
 
+    IEnumerator incrementTimeMirror()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1.0f); // Espera 1 segundo
+            time_mirror++; // Incrementa el cronómetro
+            Debug.LogWarning($"Segundo: {time_mirror}");
+        }
+    }
+
     public void Initial_color() //Imprime un color inicial
     {
         RadomColor = Random.Range(0, colours.Length);
         mirror_renderer.material.color = colours[RadomColor];
+    }
+
+    void Update()
+    {
+        if (time_mirror == 20)
+        {
+            timeToWait = 1.5f;
+        }
+        if (time_mirror == 40)
+        {
+            timeToWait = 1.0f;
+        }
+        if (time_mirror == 60)
+        {
+            timeToWait = 0.5f;
+        }
     }
 }

@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b154a17480f46a94a935984fc4045c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disks_prefab: {fileID: 8256457692180086664, guid: e8b2db812d5b650448758386e9e852dc,
+  disks_prefab: {fileID: 6002081709506393465, guid: 36535ed9c917eda488957fa7663628bd,
     type: 3}
-  tower_prefab: {fileID: 3903842704117665927, guid: c0ee9b02f4756584e8052a10e2554738,
+  tower_prefab: {fileID: 2808789780887303110, guid: 30c68c76a2e53ad4eb44891266072910,
     type: 3}
   disks_number: 7
   Initial_positions: {x: 0, y: 0, z: 3}

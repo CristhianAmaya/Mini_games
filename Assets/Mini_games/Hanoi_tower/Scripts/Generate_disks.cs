@@ -25,8 +25,8 @@ public class Generate_disks : MonoBehaviour
         Colors = new Color[disks_number]; // Esta variable servirá para colocarle un color a cada uno de los discos
         positions_disks = new Vector3[disks_number]; // Esta variable servirá para colocar la cantidad de discos que se van a generar
         Scaless = new Vector3[disks_number];
-        Scaless[0] = new Vector3(disks_prefab.transform.GetChild(0).localScale.x, disks_prefab.transform.GetChild(0).localScale.y, disks_prefab.transform.GetChild(0).localScale.z); // Este Vector sirve como configurador de escalas
-        positions_disks[0] = new Vector3(Initial_positions.x, Initial_positions.y, Initial_positions.z); // Posición inicial del primer disco
+        Scaless[0] = new Vector3(disks_prefab.transform.localScale.x, disks_prefab.transform.localScale.y, disks_prefab.transform.localScale.z); // Este Vector sirve como configurador de escalas
+        positions_disks[0] = new Vector3(Initial_positions.x, Initial_positions.y + 0.2f, Initial_positions.z); // Posición inicial del primer disco
 
         for (int i = 0; i < positions_disks.Length; i++)
         {
@@ -41,32 +41,21 @@ public class Generate_disks : MonoBehaviour
                 Random.Range(0f, 1f)); // B
 
             GameObject newDisk = Instantiate(disks_prefab, positions_disks[i], Quaternion.identity); // Crea el objeto
+            Renderer diskRenderer = newDisk.GetComponent<Renderer>(); // Obtiene el componente Renderer del objeto actual
 
-            // Verificar si el objeto tiene hijos antes de acceder a ellos
-            if (newDisk.transform.childCount > 0)
+            if (diskRenderer != null)
             {
-                Transform diskTransform = newDisk.transform.GetChild(0); // Accede al primer hijo del prefab (el disco en sí)
-                Renderer diskRenderer = diskTransform.GetComponent<Renderer>(); // Obtiene el componente Renderer del objeto actual
-
-                if (diskRenderer != null)
-                {
-                    diskRenderer.material.color = Colors[i];
-                }
-                newDisk.name = "Disk_" + (i + 1); // Cambiar el nombre del objeto instanciado
-                newDisk.AddComponent<Rigidbody>();
-                diskTransform.localScale = new Vector3(Scaless[i].x, Scaless[i].y, Scaless[i].z); // Cambia la escala del objeto generado
+                diskRenderer.material.color = Colors[i];
             }
-            else
-            {
-                Debug.LogError("El prefab de disco no tiene hijos");
-            }
+            newDisk.name = "Disk_" + (i + 1); // Cambiar el nombre del objeto instanciado
+            newDisk.transform.localScale = new Vector3(Scaless[i].x, Scaless[i].y, Scaless[i].z); // Cambia la escala del objeto generado
         }
     }
 
     public void generate_towers()
     {
         positions_towers = new Vector3[3]; // Se crearan tres torres en total
-        positions_towers[0] = new Vector3(Initial_positions.x, Initial_positions.y, Initial_positions.z); // Posición inicial de la primera torre
+        positions_towers[0] = new Vector3(Initial_positions.x, Initial_positions.y + tower_prefab.transform.localScale.y, Initial_positions.z); // Posición inicial de la primera torre
 
         for (int i = 0; i < positions_towers.Length; i++)
         {
@@ -75,23 +64,13 @@ public class Generate_disks : MonoBehaviour
                 positions_towers[i + 1] = new Vector3(positions_towers[i].x, positions_towers[i].y, positions_towers[i].z - 3.0f);
             }
             GameObject newTower = Instantiate(tower_prefab, positions_towers[i], Quaternion.identity);
+            Renderer towerRenderer = newTower.GetComponent<Renderer>();
 
-            // Verificar si el objeto tiene hijos antes de acceder a ellos
-            if (newTower.transform.childCount > 0)
+            if (towerRenderer != null)
             {
-                Transform towerTransform = newTower.transform.GetChild(0); // Accede al primer hijo del prefab (la torre en sí)
-                Renderer towerRenderer = towerTransform.GetComponent<Renderer>();
-
-                if (towerRenderer != null)
-                {
-                    towerRenderer.material.color = Color.white;
-                }
-                newTower.name = "Tower" + (i + 1);
+                towerRenderer.material.color = Color.white;
             }
-            else
-            {
-                Debug.LogError("El prefab de torre no tiene hijos");
-            }
+            newTower.name = "Tower" + (i + 1);
         }
     }
 
